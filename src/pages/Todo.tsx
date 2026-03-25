@@ -4,11 +4,12 @@ export default function Todo() {
     const [inputValue, setInputValue] = useState("");
     const addTodo = () => {
         if(inputValue.trim() !== "") {
-            setTodos([...todos, inputValue]);
+            const newTodo = inputValue.trim();
+            setTodos([...todos, newTodo]);
             setInputValue("");
         }
     }
-    const delTodo = (index: number) => {
+    const deleteTodo = (index: number) => {
         setTodos(todos.filter((_, i) => i !== index));
     }
     return (
@@ -24,7 +25,12 @@ export default function Todo() {
                 <button onClick={addTodo}>Add Todo</button>
             </div>
             <ul>
-                {todos.map((item, index) => (<li key={index}>{item} <button onClick={() => delTodo(index)}>Delete</button></li>))}
+                {todos.map((item, index) => (
+                    <li key={index}>
+                        {item}
+                        <button onClick={() => deleteTodo(index)}>Delete</button>
+                    </li>
+                ))}
             </ul>        
         </div>
     )
