@@ -1,19 +1,32 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+
 type TodoItem = {
     id: number;
     text: string;
     done: boolean;
 }
+type Filter = "all" | "active" | "completed";
 export default function Todo() {
-    const [todos, setTodos] = useState<TodoItem[]>([]);
+    const [todos, setTodos] = useState<TodoItem[]>(() =>{
+        const savedTodos = localStorage.getItem("todos");
+        return savedTodos ? JSON.parse(savedTodos) : [];
+    }
+
+    );
     const [inputValue, setInputValue] = useState("");
     const [editingId, setEditingId] = useState<number | null>(null);
     const [tempText, setTempText] = useState("");
-    const addTodo = () => {
-        if(inputValue.trim() !== "") {
-            const newTodo: TodoItem = {
-                id: Date.now(),
-                text: inputValue.trim(),
+    const [filter, setFilter] = useState<Filter>("all");
+
+useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+}, [todos]);
+
+const addTodo = () => {
+    if(inputValue.trim() !== "") {
+        const newTodo: TodoItem = {
+            id: Date.now(),
+            text: inputValue.trim(),
                 done: false
             };
             setTodos([...todos, newTodo]);
@@ -43,7 +56,7 @@ export default function Todo() {
                 item.id === id ? {...item, text: newText} : item
             )
         );
-        
+
         setEditingId(null);
         setTempText("");
     }
@@ -51,6 +64,13 @@ export default function Todo() {
         setEditingId(null);
         setTempText("");
     }
+
+    const filteredTodos = todos.filter((item) => {
+        if(filter === "active") return !item.done;
+        if(filter === "completed") return item.done;
+        return true;
+    });
+    
     return (
         <div>
             <h1>Todos</h1>
@@ -63,9 +83,14 @@ export default function Todo() {
                 />
                 <button onClick={addTodo}>Add Todo</button>
             </div>
+            <div>
+                <button onClick={() => setFilter("all")}>All</button>
+                <button onClick={() => setFilter("active")}>Active</button>
+                <button onClick={() => setFilter("completed")}>Completed</button>
+            </div>
             <ul>
                 {
-                    todos.map((item)=>{
+                    filteredTodos.map((item) => {
                         return item.id === editingId ? (
                             <li key={item.id}>
                                 <input
