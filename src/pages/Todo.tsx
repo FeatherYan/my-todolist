@@ -1,18 +1,20 @@
 import { useState, useEffect } from "react"
+import TodoItemComponent from "../components/TodoItem";
+import TodoInput from "../components/TodoInput";
+import TodoFilter from "../components/TodoFilter";
 
-type TodoItem = {
+type TodoData = {
     id: number;
     text: string;
     done: boolean;
 }
 type Filter = "all" | "active" | "completed";
+
 export default function Todo() {
-    const [todos, setTodos] = useState<TodoItem[]>(() =>{
+    const [todos, setTodos] = useState<TodoData[]>(() =>{
         const savedTodos = localStorage.getItem("todos");
         return savedTodos ? JSON.parse(savedTodos) : [];
-    }
-
-    );
+    });
     const [inputValue, setInputValue] = useState("");
     const [editingId, setEditingId] = useState<number | null>(null);
     const [tempText, setTempText] = useState("");
@@ -24,7 +26,7 @@ useEffect(() => {
 
 const addTodo = () => {
     if(inputValue.trim() !== "") {
-        const newTodo: TodoItem = {
+        const newTodo: TodoData = {
             id: Date.now(),
             text: inputValue.trim(),
                 done: false
@@ -39,7 +41,7 @@ const addTodo = () => {
     const toggleTodo = (id: number) => {
         setTodos(todos.map((item) => item.id === id ? {...item, done: !item.done} : item));
     }
-    const startEdit = (item: TodoItem) => {
+    const startEdit = (item: TodoData) => {
         setEditingId(item.id);
         setTempText(item.text);
     }
@@ -74,45 +76,29 @@ const addTodo = () => {
     return (
         <div>
             <h1>Todos</h1>
-            <div>
-                <input
-                    type="text"
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    placeholder="Enter a new todo"
-                />
-                <button onClick={addTodo}>Add Todo</button>
-            </div>
-            <div>
-                <button onClick={() => setFilter("all")}>All</button>
-                <button onClick={() => setFilter("active")}>Active</button>
-                <button onClick={() => setFilter("completed")}>Completed</button>
-            </div>
+            <TodoInput 
+                inputValue={inputValue} 
+                onInputChange={setInputValue} 
+                onAdd={addTodo} 
+            />
+            <TodoFilter filter={filter} onFilterChange={setFilter} />
             <ul>
                 {
                     filteredTodos.map((item) => {
-                        return item.id === editingId ? (
-                            <li key={item.id}>
-                                <input
-                                    type="text"
-                                    value={tempText}
-                                    onChange={(e) => setTempText(e.target.value)}
-                                />
-                                <button onClick={() => saveEdit(item.id)}>Save</button>
-                                <button onClick={cancelEdit}>Cancel</button>
-                            </li>
-                        ) : (
-                            <li key={item.id}>
-                                <span style={{ textDecoration: item.done ? "line-through" : "none" }}>
-                                    {item.text}
-                                </span>
-                                <button onClick={() => startEdit(item)}>Edit</button>
-                                <button onClick={() => toggleTodo(item.id)}>
-                                    {item.done ? "Undo" : "Done"}
-                                </button>
-                                <button onClick={() => deleteTodo(item.id)}>Delete</button>
-                            </li>
-                    )
+                        return (
+                            <TodoItemComponent
+                                key={item.id}
+                                item={item}
+                                isEditing={item.id === editingId}
+                                tempText={tempText}
+                                onEdit={() => startEdit(item)}
+                                onToggle={() => toggleTodo(item.id)}
+                                onDelete={() => deleteTodo(item.id)}
+                                onSave={() => saveEdit(item.id)}
+                                onCancel={cancelEdit}
+                                onTempTextChange={setTempText}
+                            />
+                        );
                     })
                 }
             </ul>        
