@@ -1,4 +1,5 @@
-type Filter = "all" | "active" | "completed";
+import type { Filter } from "../types/todo";
+
 type TodoFilterProps = {
     filter: Filter;
     onFilterChange: (filter: Filter) => void;

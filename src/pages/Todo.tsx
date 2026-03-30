@@ -2,13 +2,7 @@ import { useState, useEffect } from "react"
 import TodoItemComponent from "../components/TodoItem";
 import TodoInput from "../components/TodoInput";
 import TodoFilter from "../components/TodoFilter";
-
-type TodoData = {
-    id: number;
-    text: string;
-    done: boolean;
-}
-type Filter = "all" | "active" | "completed";
+import type { TodoData, Filter  } from "../types/todo";
 
 export default function Todo() {
     const [todos, setTodos] = useState<TodoData[]>(() =>{

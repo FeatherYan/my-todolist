@@ -1,8 +1,4 @@
-type TodoData = {
-    id: number;
-    text: string;
-    done: boolean;
-};
+import type { TodoData } from "../types/todo";
 
 type TodoItemProps = {
     item: TodoData;
