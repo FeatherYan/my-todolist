@@ -1,4 +1,5 @@
 import type { TodoData } from "../types/todo";
+
 const TODO_STORAGE_KEY = "todos";
 
 function loadTodos():TodoData[]{
