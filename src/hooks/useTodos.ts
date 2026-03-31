@@ -62,13 +62,16 @@ export function useTodos() {
     }
 
     
-    // 4. filteredTodos
+    // 4. filteredTodos以及其他派生数据
     const filteredTodos = todos.filter((item) => {
         if(filter === "active") return !item.done;
         if(filter === "completed") return item.done;
         return true;
     });
 
+    const totalCount = todos.length;
+    const completedCount = todos.filter((item) => item.done).length;
+    const activeCount = todos.filter((item) => !item.done).length;
     // 5. return 一个对象，把页面需要的都返回出去
     return {
         inputValue,
@@ -84,6 +87,9 @@ export function useTodos() {
         startEdit,
         saveEdit,
         cancelEdit,
-        filteredTodos
+        filteredTodos,
+        totalCount,
+        completedCount,
+        activeCount
     }
 }

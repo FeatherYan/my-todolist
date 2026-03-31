@@ -1,7 +1,8 @@
 import TodoItemComponent from "../components/TodoItem";
 import TodoInput from "../components/TodoInput";
 import TodoFilter from "../components/TodoFilter";
-import { useTodos } from "../hooks/useTodos";
+import { useTodos } from "../hooks/useTodos"; 
+import Todostats from "../components/Todostats";
 
 export default function Todo() {
     const {
@@ -18,7 +19,10 @@ export default function Todo() {
         startEdit,
         saveEdit,
         cancelEdit,
-        filteredTodos
+        filteredTodos,
+        totalCount,
+        completedCount,
+        activeCount
     } = useTodos();
 
     return (
@@ -30,6 +34,7 @@ export default function Todo() {
                 onAdd={addTodo} 
             />
             <TodoFilter filter={filter} onFilterChange={setFilter} />
+            <Todostats totalCount={totalCount} activeCount={activeCount} completedCount={completedCount} />
             <ul>
                 {
                     filteredTodos.map((item) => {
