@@ -1,11 +1,11 @@
 import { useState, useEffect  } from "react";
 import type { TodoData, Filter } from "../types/todo";
+import { loadTodos, saveTodos } from "../services/todoStorage";
 
 export function useTodos() {
     // 1. 各种 state
     const [todos, setTodos] = useState<TodoData[]>(() =>{
-        const savedTodos = localStorage.getItem("todos");
-        return savedTodos ? JSON.parse(savedTodos) : [];
+        return loadTodos();
     });
     const [inputValue, setInputValue] = useState("");
     const [editingId, setEditingId] = useState<number | null>(null);
@@ -14,7 +14,7 @@ export function useTodos() {
 
     // 2. useEffect 保存 localStorage
     useEffect(() => {
-        localStorage.setItem("todos", JSON.stringify(todos));
+        saveTodos(todos);
     }, [todos]);
 
     // 3. 各种业务函数
