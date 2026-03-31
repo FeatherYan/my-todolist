@@ -1,7 +1,7 @@
 import { useState, useEffect  } from "react";
 import type { TodoData, Filter } from "../types/todo";
 
-export default function useTodos() {
+export function useTodos() {
     // 1. 各种 state
     const [todos, setTodos] = useState<TodoData[]>(() =>{
         const savedTodos = localStorage.getItem("todos");
@@ -74,13 +74,10 @@ export default function useTodos() {
         inputValue,
         setInputValue,
         editingId,
-        setEditingId,
         tempText,
         setTempText,
         filter,
         setFilter,
-        todos,
-        setTodos,
         addTodo,
         deleteTodo,
         toggleTodo,

@@ -1,22 +1,17 @@
-import { useState, useEffect } from "react"
 import TodoItemComponent from "../components/TodoItem";
 import TodoInput from "../components/TodoInput";
 import TodoFilter from "../components/TodoFilter";
-import type { TodoData, Filter  } from "../types/todo";
-import useTodos from "../hooks/useTodos";
+import { useTodos } from "../hooks/useTodos";
 
 export default function Todo() {
     const {
         inputValue,
         setInputValue,
         editingId,
-        setEditingId,
         tempText,
         setTempText,
         filter,
         setFilter,
-        todos,
-        setTodos,
         addTodo,
         deleteTodo,
         toggleTodo,
