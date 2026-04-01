@@ -11,11 +11,15 @@ import type { TodoData, Filter } from "../types/todo";
 type TodoState = {
     todos: TodoData[];
     filter: Filter;
+    editingId: number | null;
+    tempText: string;
 };
 
 const initialState: TodoState = {
     todos: [],
-    filter: "all"
+    filter: "all",
+    editingId: null,
+    tempText: ""
 };
 
 const todoSlice = createSlice({
@@ -42,10 +46,35 @@ const todoSlice = createSlice({
         },
         setFilter: (state, action: PayloadAction<Filter>) => {
             state.filter = action.payload;
+        },
+        startEdit: (state, action: PayloadAction<TodoData>) => {
+            state.editingId = action.payload.id;
+            state.tempText = action.payload.text;
+        },
+        setTempText: (state, action: PayloadAction<string>) => {
+            state.tempText = action.payload;
+        },
+        saveEdit: (state) => {
+            const newText = state.tempText.trim();
+            if (newText === "") {
+                alert("Todo text cannot be empty.");
+                return;
+            }
+
+            const todo = state.todos.find(t => t.id === state.editingId);
+            if (todo) {
+                todo.text = newText;
+            }
+
+            state.editingId = null;
+            state.tempText = "";
+        },
+        cancelEdit: (state) => {
+            state.editingId = null;
+            state.tempText = "";
         }
-        
     }
 });
 
-export const { addTodo, removeTodo, toggleTodo, setFilter } = todoSlice.actions;
+export const { addTodo, removeTodo, toggleTodo, setFilter, startEdit, setTempText, saveEdit, cancelEdit } = todoSlice.actions;
 export default todoSlice.reducer;
