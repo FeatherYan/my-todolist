@@ -1,13 +1,17 @@
 import { useAppSelector, useAppDispatch } from "../../hooks/redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { addTodo, removeTodo, toggleTodo, setFilter, startEdit, setTempText, saveEdit, cancelEdit } from "../../store/todoSlice";
 import TodoInput from "../../components/TodoInput";
 import TodoFilter from "../../components/TodoFilter";
 import TodoStats from "../../components/TodoStats";
-import TodoItemComponent from "../../components/TodoItem";
+import TodoItemComponent from "../../components/TodoItem"; 
+import { saveTodos, TODO_REDUX_STORAGE_KEY } from "../../services/todoStorage";
 
 export default function TodoRedux() {
     const todos = useAppSelector(state => state.todo.todos);
+    useEffect(() => {
+        saveTodos(TODO_REDUX_STORAGE_KEY, todos);
+    }, [todos]);
     const filter = useAppSelector(state => state.todo.filter);
     const editingId = useAppSelector(state => state.todo.editingId);
     const tempText = useAppSelector(state => state.todo.tempText);  

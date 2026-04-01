@@ -1,11 +1,11 @@
 import { useState, useEffect  } from "react";
 import type { TodoData, Filter } from "../types/todo";
 import { loadTodos, saveTodos } from "../services/todoStorage";
-
+import { TODO_USE_STATE_STORAGE_KEY } from "../services/todoStorage";
 export function useTodos() {
     // 1. 各种 state
     const [todos, setTodos] = useState<TodoData[]>(() =>{
-        return loadTodos();
+        return loadTodos(TODO_USE_STATE_STORAGE_KEY);
     });
     const [inputValue, setInputValue] = useState("");
     const [editingId, setEditingId] = useState<number | null>(null);
@@ -14,7 +14,7 @@ export function useTodos() {
 
     // 2. useEffect 保存 localStorage
     useEffect(() => {
-        saveTodos(todos);
+        saveTodos(TODO_USE_STATE_STORAGE_KEY, todos);
     }, [todos]);
 
     // 3. 各种业务函数

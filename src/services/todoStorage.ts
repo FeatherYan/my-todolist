@@ -1,14 +1,14 @@
 import type { TodoData } from "../types/todo";
+export const TODO_USE_STATE_STORAGE_KEY = "todos-use-state";
+export const TODO_REDUX_STORAGE_KEY = "todos-redux";
 
-const TODO_STORAGE_KEY = "todos";
-
-function loadTodos():TodoData[]{
-    const savedTodos = localStorage.getItem(TODO_STORAGE_KEY);
+function loadTodos(storageKey: string):TodoData[]{
+    const savedTodos = localStorage.getItem(storageKey);
     return savedTodos ? JSON.parse(savedTodos) : [];
 }
 
-function saveTodos(todos:TodoData[]):void{
-    localStorage.setItem(TODO_STORAGE_KEY, JSON.stringify(todos));
+function saveTodos(storageKey: string, todos:TodoData[]):void{
+    localStorage.setItem(storageKey, JSON.stringify(todos));
 }
 
 export { loadTodos, saveTodos };

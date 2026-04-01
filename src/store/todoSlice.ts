@@ -7,6 +7,9 @@
 // 导出 reducer
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { TodoData, Filter } from "../types/todo";
+import { loadTodos } from "../services/todoStorage";
+import { TODO_REDUX_STORAGE_KEY } from "../services/todoStorage";
+
 
 type TodoState = {
     todos: TodoData[];
@@ -16,7 +19,7 @@ type TodoState = {
 };
 
 const initialState: TodoState = {
-    todos: [],
+    todos: loadTodos(TODO_REDUX_STORAGE_KEY),
     filter: "all",
     editingId: null,
     tempText: ""
@@ -56,10 +59,7 @@ const todoSlice = createSlice({
         },
         saveEdit: (state) => {
             const newText = state.tempText.trim();
-            if (newText === "") {
-                alert("Todo text cannot be empty.");
-                return;
-            }
+            if (newText === "") return;
 
             const todo = state.todos.find(t => t.id === state.editingId);
             if (todo) {
