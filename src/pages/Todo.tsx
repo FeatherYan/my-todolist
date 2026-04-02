@@ -4,8 +4,9 @@
 import { useState } from "react";
 import TodoUseState from "../features/todo/TodoUseState";
 import TodoRedux from "../features/todo/TodoRedux";
+import { TodoZustand } from "../features/todo/TodoZustand";
 
-type TabKey = "useState" | "redux";
+type TabKey = "useState" | "redux" | "zustand";
 
 
 export default function Todo() {
@@ -20,9 +21,12 @@ export default function Todo() {
                 <button onClick={() => setActiveTab("redux")}>
                     Redux Toolkit Version
                 </button>
+                <button onClick={() => setActiveTab("zustand")}>
+                    Zustand Version
+                </button>
             </div>
             <div>
-                {activeTab === "useState" ? <TodoUseState /> : <TodoRedux />}
+                {activeTab === "useState" ? <TodoUseState /> : activeTab === "zustand" ? <TodoZustand /> : <TodoRedux />}
             </div>
         </div>
     )
