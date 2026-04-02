@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import type { Filter, TodoData } from "../types/todo";
+import { loadTodos, TODO_ZUSTAND_STORAGE_KEY } from "../services/todoStorage";
 
 type TodoZustandStore = {
     todos: TodoData[];
@@ -12,12 +13,12 @@ type TodoZustandStore = {
     setFilter: (filter: Filter) => void;
     startEdit: (item: TodoData) => void;
     setTempText: (text: string) => void;
-    saveEdit: (id: number) => void;
+    saveEdit: () => void;
     cancelEdit: () => void;
 };
 
 export const useTodoZustandStore = create<TodoZustandStore>((set) => ({
-    todos: [],
+    todos: loadTodos(TODO_ZUSTAND_STORAGE_KEY),
     filter: "all",
     editingId: null,
     tempText: "",
@@ -58,14 +59,14 @@ export const useTodoZustandStore = create<TodoZustandStore>((set) => ({
 
     setTempText: (text) => set({ tempText: text }),
 
-    saveEdit: (id) =>
+    saveEdit: () =>
         set((state) => {
             const newText = state.tempText.trim();
             if (!newText) return state;
 
             return {
                 todos: state.todos.map((todo) =>
-                    todo.id === id ? { ...todo, text: newText } : todo
+                    todo.id === state.editingId ? { ...todo, text: newText } : todo
                 ),
                 editingId: null,
                 tempText: ""

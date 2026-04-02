@@ -1,11 +1,12 @@
-import { useTodoZustandStore } from "../../store/todoZustand";
-import { useState } from "react";
+import { useTodoZustandStore } from "../../store/todoZustandStore";
+import { useState, useEffect } from "react";
 import TodoItemComponent from "../../components/TodoItem";
 import TodoInput from "../../components/TodoInput";
 import TodoFilter from "../../components/TodoFilter";
-import Todostats from "../../components/TodoStats";
+import TodoStats from "../../components/TodoStats";
+import { saveTodos, TODO_ZUSTAND_STORAGE_KEY } from "../../services/todoStorage";
 
-export function TodoZustand() {
+export default function TodoZustand() {
     const todos = useTodoZustandStore(state => state.todos);
     const filter = useTodoZustandStore(state => state.filter);
     const editingId = useTodoZustandStore(state => state.editingId);
@@ -37,7 +38,9 @@ export function TodoZustand() {
             setInputValue("");
         }
     };
-
+    useEffect(() => {
+        saveTodos(TODO_ZUSTAND_STORAGE_KEY, todos);
+    }, [todos]);
     return (
             <div>
                 <h1>Todos</h1>
@@ -47,7 +50,7 @@ export function TodoZustand() {
                     onAdd={addTodoHandler} 
                 />
                 <TodoFilter filter={filter} onFilterChange={setFilter} />
-                <Todostats totalCount={totalCount} activeCount={activeCount} completedCount={completedCount} />
+                <TodoStats totalCount={totalCount} activeCount={activeCount} completedCount={completedCount} />
                 <ul>
                     {
                         filteredTodos.map((item) => {
@@ -60,7 +63,7 @@ export function TodoZustand() {
                                     onEdit={() => startEdit(item)}
                                     onToggle={() => toggleTodo(item.id)}
                                     onDelete={() => deleteTodo(item.id)}
-                                    onSave={() => saveEdit(item.id)}
+                                    onSave={() => saveEdit()}
                                     onCancel={cancelEdit}
                                     onTempTextChange={setTempText}
                                 />

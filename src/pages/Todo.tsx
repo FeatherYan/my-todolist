@@ -4,9 +4,11 @@
 import { useState } from "react";
 import TodoUseState from "../features/todo/TodoUseState";
 import TodoRedux from "../features/todo/TodoRedux";
-import { TodoZustand } from "../features/todo/TodoZustand";
+import TodoZustand from "../features/todo/TodoZustand";
+import TodoContext from "../features/todo/TodoContext";
+import { TodoProvider } from "../context/TodoContextStore";
 
-type TabKey = "useState" | "redux" | "zustand";
+type TabKey = "useState" | "redux" | "zustand" | "context";
 
 
 export default function Todo() {
@@ -24,9 +26,12 @@ export default function Todo() {
                 <button onClick={() => setActiveTab("zustand")}>
                     Zustand Version
                 </button>
+                <button onClick={() => setActiveTab("context")}>
+                    Context Version
+                </button>
             </div>
             <div>
-                {activeTab === "useState" ? <TodoUseState /> : activeTab === "zustand" ? <TodoZustand /> : <TodoRedux />}
+                {activeTab === "useState" ? <TodoUseState /> : activeTab === "zustand" ? <TodoZustand /> : activeTab === "context" ? (<TodoProvider><TodoContext /></TodoProvider>) : <TodoRedux />}
             </div>
         </div>
     )
