@@ -42,8 +42,8 @@ export default function TodoZustand() {
         saveTodos(TODO_ZUSTAND_STORAGE_KEY, todos);
     }, [todos]);
     return (
-            <div>
-                <h1>Todos</h1>
+            <div className="todo-board">
+                <h2 className="todo-board-title">Todos</h2>
                 <TodoInput 
                     inputValue={inputValue} 
                     onInputChange={setInputValue} 
@@ -51,7 +51,7 @@ export default function TodoZustand() {
                 />
                 <TodoFilter filter={filter} onFilterChange={setFilter} />
                 <TodoStats totalCount={totalCount} activeCount={activeCount} completedCount={completedCount} />
-                <ul>
+                <ul className="todo-list">
                     {
                         filteredTodos.map((item) => {
                             return (

@@ -43,8 +43,8 @@ export default function TodoRedux() {
     const activeCount = useAppSelector(selectActiveCount);
     
     return (
-        <div>
-            <h1>Todos</h1>
+        <div className="todo-board">
+            <h2 className="todo-board-title">Todos</h2>
             
             <TodoInput 
                 inputValue={inputValue} 
@@ -56,7 +56,7 @@ export default function TodoRedux() {
             
             <TodoStats totalCount={totalCount} activeCount={activeCount} completedCount={completedCount} />
             
-            <ul>
+            <ul className="todo-list">
                 {
                     filteredTodos.map((item) => {
                         return (

@@ -24,25 +24,30 @@ export default function TodoItemComponent({
   onTempTextChange,
 }: TodoItemProps) {
     return isEditing ? (
-        <li>
+        <li className="todo-item todo-item-editing">
             <input
+                className="todo-item-input"
                 type="text"
                 value={tempText}
                 onChange={(e) => onTempTextChange(e.target.value)}
             />
-            <button onClick={onSave}>Save</button>
-            <button onClick={onCancel}>Cancel</button>
+            <div className="todo-item-actions">
+                <button className="todo-button todo-button-primary" onClick={onSave}>Save</button>
+                <button className="todo-button" onClick={onCancel}>Cancel</button>
+            </div>
         </li>
     ):(
-        <li>
-            <span style={{ textDecoration: item.done ? "line-through" : "none" }}>
+        <li className={`todo-item ${item.done ? "todo-item-done" : ""}`}>
+            <span className="todo-item-text" style={{ textDecoration: item.done ? "line-through" : "none" }}>
                 {item.text}
             </span>
-            <button onClick={onEdit}>Edit</button>
-            <button onClick={onToggle}>
-                {item.done ? "Undo" : "Done"}
-            </button>
-            <button onClick={onDelete}>Delete</button>
+            <div className="todo-item-actions">
+                <button className="todo-button" onClick={onEdit}>Edit</button>
+                <button className="todo-button" onClick={onToggle}>
+                    {item.done ? "Undo" : "Done"}
+                </button>
+                <button className="todo-button todo-button-danger" onClick={onDelete}>Delete</button>
+            </div>
         </li>
     )
 }

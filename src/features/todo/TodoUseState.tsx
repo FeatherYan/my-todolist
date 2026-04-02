@@ -26,8 +26,8 @@ export default function Todo() {
     } = useTodos();
 
     return (
-        <div>
-            <h1>Todos</h1>
+        <div className="todo-board">
+            <h2 className="todo-board-title">Todos</h2>
             <TodoInput 
                 inputValue={inputValue} 
                 onInputChange={setInputValue} 
@@ -35,7 +35,7 @@ export default function Todo() {
             />
             <TodoFilter filter={filter} onFilterChange={setFilter} />
             <Todostats totalCount={totalCount} activeCount={activeCount} completedCount={completedCount} />
-            <ul>
+            <ul className="todo-list">
                 {
                     filteredTodos.map((item) => {
                         return (

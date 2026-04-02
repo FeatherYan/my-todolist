@@ -9,14 +9,15 @@ export default function TodoInput({
     onAdd
 }: TodoInputProps) {
     return (
-        <div>
+        <div className="todo-input-row">
             <input
+                className="todo-input"
                 type="text"
                 value={inputValue}
                 onChange={(e) => onInputChange(e.target.value)}
                 placeholder="Enter a new todo"
             />
-            <button onClick={onAdd}>Add Todo</button>
+            <button className="todo-button todo-button-primary" onClick={onAdd}>Add Todo</button>
         </div>
     )
 }

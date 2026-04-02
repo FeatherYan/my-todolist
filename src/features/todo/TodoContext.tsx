@@ -33,8 +33,8 @@ export default function TodoContext() {
     }, [todos]);
 
     return (
-            <div>
-                <h1>Todos</h1>
+            <div className="todo-board">
+                <h2 className="todo-board-title">Todos</h2>
                 <TodoInput 
                     inputValue={inputValue} 
                     onInputChange={setInputValue} 
@@ -42,7 +42,7 @@ export default function TodoContext() {
                 />
                 <TodoFilter filter={filter} onFilterChange={(filter) => dispatch({ type: "SET_FILTER", payload: filter })} />
                 <TodoStats totalCount={totalCount} activeCount={activeCount} completedCount={completedCount} />
-                <ul>
+                <ul className="todo-list">
                     {
                         filteredTodos.map((item) => {
                             return (
