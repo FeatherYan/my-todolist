@@ -352,3 +352,226 @@ button {
     justify-content: flex-start;
   }
 }
+
+.home-page,
+.form-page {
+  width: min(980px, calc(100% - 32px));
+  margin: 40px auto;
+  padding: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 32px;
+  background: var(--surface);
+  backdrop-filter: blur(18px);
+  box-shadow: var(--shadow-lg);
+}
+
+.home-page-header,
+.form-page-header {
+  margin-bottom: 24px;
+}
+
+.home-tabs-shell,
+.form-shell {
+  padding: 10px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.66), rgba(241, 245, 252, 0.82));
+}
+
+.home-tabs .ant-tabs-nav {
+  margin-bottom: 18px;
+}
+
+.home-tabs .ant-tabs-nav::before {
+  border-bottom-color: transparent;
+}
+
+.home-tabs .ant-tabs-nav-list {
+  gap: 10px;
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface-soft);
+}
+
+.home-tabs .ant-tabs-tab {
+  margin: 0;
+  padding: 11px 16px;
+  border-radius: 12px;
+  color: var(--muted-text);
+  transition: 0.2s ease;
+}
+
+.home-tabs .ant-tabs-tab:hover {
+  color: var(--page-text);
+}
+
+.home-tabs .ant-tabs-tab-active {
+  background: linear-gradient(180deg, #f1f6ff 0%, #e6efff 100%);
+}
+
+.home-tabs .ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: var(--primary-strong) !important;
+  font-weight: 700;
+}
+
+.home-tabs .ant-tabs-ink-bar {
+  display: none;
+}
+
+.home-tabs .ant-tabs-content-holder {
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background: var(--surface-strong);
+  box-shadow: var(--shadow-md);
+}
+
+.home-tabs .ant-tabs-tabpane {
+  padding: 0;
+}
+
+.home-tabs .todo-page,
+.home-tabs .form-page {
+  width: 100%;
+  margin: 0;
+  padding: 28px;
+  border: 0;
+  border-radius: 24px;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.project-form {
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  background: var(--surface-strong);
+  box-shadow: var(--shadow-md);
+}
+
+.project-form .ant-form-item {
+  margin-bottom: 20px;
+}
+
+.project-form .ant-form-item-label > label {
+  font-weight: 700;
+  color: #1f2a3d;
+}
+
+.project-form .ant-input,
+.project-form .ant-input-number,
+.project-form .ant-picker,
+.project-form .ant-select-selector,
+.project-form .ant-input-affix-wrapper,
+.project-form .ant-input-outlined,
+.project-form .ant-input-number-outlined {
+  border-color: var(--border) !important;
+  border-radius: 14px !important;
+  background: var(--surface-soft) !important;
+  box-shadow: none !important;
+}
+
+.project-form .ant-input,
+.project-form .ant-input-number-input,
+.project-form .ant-select-selection-search-input,
+.project-form .ant-select-selection-item,
+.project-form .ant-picker-input > input,
+.project-form textarea.ant-input {
+  color: var(--page-text);
+}
+
+.project-form .ant-input,
+.project-form .ant-picker,
+.project-form .ant-input-number,
+.project-form .ant-input-affix-wrapper {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.project-form .ant-input:focus,
+.project-form .ant-input-focused,
+.project-form .ant-input-number-focused,
+.project-form .ant-picker-focused,
+.project-form .ant-select-focused .ant-select-selector,
+.project-form .ant-input-affix-wrapper-focused {
+  border-color: rgba(47, 111, 237, 0.45) !important;
+  background: #fff !important;
+  box-shadow: 0 0 0 4px rgba(47, 111, 237, 0.12) !important;
+}
+
+.project-form .ant-radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.project-form .ant-radio-wrapper {
+  margin-inline-end: 0;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-soft);
+}
+
+.project-form .ant-checkbox-wrapper {
+  color: var(--muted-text);
+}
+
+.project-form .ant-select-multiple .ant-select-selection-item {
+  border-radius: 999px;
+  background: var(--primary-soft);
+  color: var(--primary-strong);
+}
+
+.project-form-actions .ant-form-item-control-input-content {
+  display: flex;
+  gap: 12px;
+}
+
+.project-form-submit.ant-btn {
+  height: 46px;
+  padding-inline: 20px;
+  border-radius: 12px;
+  border-color: var(--primary);
+  background: var(--primary);
+  box-shadow: none;
+}
+
+.project-form-submit.ant-btn:hover,
+.project-form-submit.ant-btn:focus {
+  border-color: var(--primary-strong) !important;
+  background: var(--primary-strong) !important;
+}
+
+.project-form-reset.ant-btn {
+  height: 46px;
+  padding-inline: 20px;
+  border-radius: 12px;
+  border-color: var(--border);
+  color: var(--page-text);
+  background: #fff;
+}
+
+@media (max-width: 840px) {
+  .home-page,
+  .form-page {
+    width: min(100%, calc(100% - 20px));
+    margin: 16px auto;
+    padding: 18px;
+    border-radius: 24px;
+  }
+
+  .home-tabs .todo-page,
+  .home-tabs .form-page {
+    padding: 18px;
+  }
+
+  .project-form {
+    padding: 18px;
+    border-radius: 22px;
+  }
+
+  .project-form-actions .ant-form-item-control-input-content {
+    flex-direction: column;
+  }
+}

@@ -7,19 +7,27 @@ export default function Home() {
     {
       key: "todo",
       label: "Todo",
-      children: <Todo />,
+      children: <Todo />
     },
     {
       key: "form",
       label: "Form",
-      children: <FormPage />,
-    },
+      children: <FormPage />
+    }
   ];
 
   return (
-    <div>
-      <h1>前端项目学习面板</h1>
-      <Tabs defaultActiveKey="todo" items={items} />
+    <div className="home-page">
+      <div className="home-page-header">
+        <p className="todo-eyebrow">Frontend Practice Workspace</p>
+        <h1>Project Playground</h1>
+        <p className="todo-page-copy">
+          Explore the Todo module and form demo with one consistent interface.
+        </p>
+      </div>
+      <div className="home-tabs-shell">
+        <Tabs className="home-tabs" defaultActiveKey="todo" items={items} />
+      </div>
     </div>
   );
 }
