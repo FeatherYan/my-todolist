@@ -6,15 +6,25 @@ import TodoFilter from "../../components/TodoFilter";
 import TodoStats from "../../components/TodoStats";
 import TodoItemComponent from "../../components/TodoItem"; 
 import { saveTodos, TODO_REDUX_STORAGE_KEY } from "../../services/todoStorage";
+import {
+    selectFilteredTodos,
+    selectTotalCount,
+    selectCompletedCount,
+    selectActiveCount,
+    selectTodos,
+    selectFilter,
+    selectEditingId,
+    selectTempText
+} from "../../store/selectors/todoSelectors";
 
 export default function TodoRedux() {
-    const todos = useAppSelector(state => state.todo.todos);
+    const todos = useAppSelector(selectTodos);
     useEffect(() => {
         saveTodos(TODO_REDUX_STORAGE_KEY, todos);
     }, [todos]);
-    const filter = useAppSelector(state => state.todo.filter);
-    const editingId = useAppSelector(state => state.todo.editingId);
-    const tempText = useAppSelector(state => state.todo.tempText);  
+    const filter = useAppSelector(selectFilter);
+    const editingId = useAppSelector(selectEditingId);
+    const tempText = useAppSelector(selectTempText);
     const dispatch = useAppDispatch();
     
     // 本地state
@@ -27,15 +37,10 @@ export default function TodoRedux() {
         }
     };
 
-    const filteredTodos = todos.filter((item) => {
-        if (filter === "active") return !item.done;
-        if (filter === "completed") return item.done;
-        return true;
-    });
-
-    const totalCount = todos.length;
-    const completedCount = todos.filter((item) => item.done).length;
-    const activeCount = todos.filter((item) => !item.done).length;
+    const filteredTodos = useAppSelector(selectFilteredTodos);
+    const totalCount = useAppSelector(selectTotalCount);
+    const completedCount = useAppSelector(selectCompletedCount);
+    const activeCount = useAppSelector(selectActiveCount);
     
     return (
         <div>
